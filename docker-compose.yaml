@@ -9,7 +9,7 @@ services:
       - MONGODB_URL
       - MONGODB_DATABASE
       - JWT_SECRET
-      - JWT_EXPIRE_MS
+      - JWT_EXPIRATION_MS
     ports:
       - ${SERVER_PORT}:${SERVER_PORT}
 

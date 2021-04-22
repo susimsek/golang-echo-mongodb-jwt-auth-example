@@ -11,7 +11,7 @@ import (
 )
 
 func GenerateJwtToken(user *model.User) (string, error) {
-	expTimeMs, _ := strconv.Atoi(config.JWTExpireMs)
+	expTimeMs, _ := strconv.Atoi(config.JWTExpirationMs)
 	exp := time.Now().Add(time.Millisecond * time.Duration(expTimeMs)).Unix()
 	name := fmt.Sprintf("%s %s", user.FirstName, user.LastName)
 

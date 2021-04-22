@@ -1,3 +1,5 @@
+# Created by .ignore support plugin (hsz.mobi)
+### Go template
 # Binaries for programs and plugins
 *.exe
 *.exe~
@@ -5,11 +7,28 @@
 *.so
 *.dylib
 
+vendor/
+tmp/
+data/
+
 # Test binary, built with `go test -c`
 *.test
 
 # Output of the go coverage tool, specifically when used with LiteIDE
+*.o
+*.a
+*.so
+*.prof
 *.out
 
-# Dependency directories (remove the comment below to include it)
-# vendor/
+# Editors
+.idea/*
+*.iml
+*.iws
+*.ipr
+*.ids
+*.orig
+
+**/sponge_log.log
+
+testing/kokoro/test-env.sh

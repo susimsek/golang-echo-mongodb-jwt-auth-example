@@ -1,0 +1,325 @@
+basePath: /api/v1
+definitions:
+  handler.APIError:
+    properties:
+      message:
+        type: string
+      path:
+        type: string
+      status:
+        type: integer
+      timestamp:
+        type: integer
+    type: object
+  model.LoginInput:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  model.User:
+    properties:
+      email:
+        type: string
+      firstName:
+        type: string
+      id:
+        type: string
+      lastName:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - firstName
+    - lastName
+    - password
+    type: object
+  model.UserInput:
+    properties:
+      email:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - firstName
+    - lastName
+    - password
+    type: object
+info:
+  contact: {}
+  description: Provides access to the core features of Golang User REST API
+  license:
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Golang User REST API
+  version: "1.0"
+paths:
+  /login:
+    post:
+      consumes:
+      - application/json
+      - text/xml
+      description: Authenticate a user item
+      parameters:
+      - description: mediaType
+        enum:
+        - xml
+        - json
+        in: query
+        name: mediaType
+        type: string
+      - description: Login
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/model.LoginInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.User'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.APIError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/handler.APIError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.APIError'
+      summary: Authenticate User
+      tags:
+      - users
+  /signup:
+    post:
+      consumes:
+      - application/json
+      - text/xml
+      description: Create a new user item
+      parameters:
+      - description: mediaType
+        enum:
+        - json
+        - xml
+        in: query
+        name: mediaType
+        type: string
+      - description: New User
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/model.UserInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.APIError'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/handler.APIError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.APIError'
+      summary: Create a user
+      tags:
+      - users
+  /users:
+    get:
+      consumes:
+      - application/json
+      - text/xml
+      description: Get all user items
+      parameters:
+      - description: mediaType
+        enum:
+        - xml
+        - json
+        in: query
+        name: mediaType
+        type: string
+      - description: page
+        in: query
+        minimum: 1
+        name: page
+        type: integer
+      - description: size
+        in: query
+        minimum: 1
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.User'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.APIError'
+      security:
+      - ApiKeyAuth: []
+      summary: Get all users
+      tags:
+      - users
+  /users/{id}:
+    delete:
+      consumes:
+      - application/json
+      - text/xml
+      description: Delete a new user item
+      parameters:
+      - description: mediaType
+        enum:
+        - json
+        - xml
+        in: query
+        name: mediaType
+        type: string
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+          schema:
+            $ref: '#/definitions/model.User'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handler.APIError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.APIError'
+      security:
+      - ApiKeyAuth: []
+      summary: Delete a user
+      tags:
+      - users
+    get:
+      consumes:
+      - application/json
+      - text/xml
+      description: Get a user item
+      parameters:
+      - description: mediaType
+        enum:
+        - json
+        - xml
+        in: query
+        name: mediaType
+        type: string
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.User'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handler.APIError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.APIError'
+      security:
+      - ApiKeyAuth: []
+      summary: Get a user
+      tags:
+      - users
+    put:
+      consumes:
+      - application/json
+      - text/xml
+      description: Update a user item
+      parameters:
+      - description: mediaType
+        enum:
+        - json
+        - xml
+        in: query
+        name: mediaType
+        type: string
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: User Info
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/model.UserInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.APIError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handler.APIError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.APIError'
+      security:
+      - ApiKeyAuth: []
+      summary: Update a user
+      tags:
+      - users
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

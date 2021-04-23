@@ -10,7 +10,7 @@ import (
 	"golang-echo-mongodb-jwt-auth-example/model"
 )
 
-var cntx context.Context
+var cntx context.Context = context.TODO()
 
 type UserRepository interface {
 	GetAllUser(page int64, limit int64) (*model.PagedUser, error)

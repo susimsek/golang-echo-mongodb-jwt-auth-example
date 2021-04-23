@@ -6,6 +6,14 @@ import (
 	"golang-echo-mongodb-jwt-auth-example/model"
 )
 
+var whiteListPaths = []string{
+	"/favicon.ico",
+	"/api",
+	"/api/*",
+	"/api/v1/login",
+	"/api/v1/signup",
+}
+
 // change default error message
 func init() {
 	middleware.ErrJWTMissing.Code = 401
@@ -23,8 +31,10 @@ func WebSecurityConfig(e *echo.Echo) {
 
 func skipAuth(e echo.Context) bool {
 	// Skip authentication for and signup login requests
-	if e.Path() == "/favicon.ico" || e.Path() == "/api" || e.Path() == "/api/*" || e.Path() == "/api/v1/login" || e.Path() == "/api/v1/signup" {
-		return true
+	for _, path := range whiteListPaths {
+		if path == e.Path() {
+			return true
+		}
 	}
 	return false
 }

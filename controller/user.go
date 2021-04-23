@@ -5,6 +5,7 @@ import (
 	"golang-echo-mongodb-jwt-auth-example/exception"
 	"golang-echo-mongodb-jwt-auth-example/model"
 	"golang-echo-mongodb-jwt-auth-example/repository"
+	"golang-echo-mongodb-jwt-auth-example/security"
 	"golang-echo-mongodb-jwt-auth-example/util"
 	"net/http"
 	"strconv"
@@ -12,10 +13,11 @@ import (
 
 type UserController struct {
 	userRepository repository.UserRepository
+	authValidator  *security.AuthValidator
 }
 
-func NewUserController(userRepository repository.UserRepository) *UserController {
-	return &UserController{userRepository: userRepository}
+func NewUserController(userRepository repository.UserRepository, authValidator *security.AuthValidator) *UserController {
+	return &UserController{userRepository: userRepository, authValidator: authValidator}
 }
 
 // AuthenticateUser godoc
@@ -36,8 +38,9 @@ func (userController *UserController) AuthenticateUser(c echo.Context) error {
 	if err := util.BindAndValidate(c, payload); err != nil {
 		return err
 	}
-	user, err := userController.userRepository.FindByEmail(payload.Email)
-	if err != nil || util.VerifyPassword(user.Password, payload.Password) != nil {
+
+	user, valid := userController.authValidator.ValidateCredentials(payload.Email, payload.Password)
+	if !valid {
 		return exception.UnauthorizedException()
 	}
 

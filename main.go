@@ -9,6 +9,7 @@ import (
 	"golang-echo-mongodb-jwt-auth-example/handler"
 	"golang-echo-mongodb-jwt-auth-example/repository"
 	"golang-echo-mongodb-jwt-auth-example/routes"
+	"golang-echo-mongodb-jwt-auth-example/security"
 	"golang-echo-mongodb-jwt-auth-example/util"
 	"log"
 )
@@ -31,15 +32,19 @@ func main() {
 		log.Println("Error when connect mongo : ", errorMongoConn.Error())
 	}
 
+	userRepository := repository.NewUserRepository(mongoConnection)
+	authValidator := security.NewAuthValidator(userRepository)
+	userController := controller.NewUserController(userRepository, authValidator)
+
 	e := echo.New()
 
 	e.HTTPErrorHandler = handler.ErrorHandler
 	e.Validator = util.NewValidationUtil()
 	config.CORSConfig(e)
-	config.WebSecurityConfig(e)
+	security.WebSecurityConfig(e)
 
-	userRepo := repository.NewUserRepository(mongoConnection)
-	userController := controller.NewUserController(userRepo)
+	security.WebSecurityConfig(e)
+
 	routes.GetUserApiRoutes(e, userController)
 	routes.GetSwaggerRoutes(e)
 

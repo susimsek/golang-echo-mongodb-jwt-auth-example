@@ -3,7 +3,7 @@ package security
 import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	config2 "golang-echo-mongodb-jwt-auth-example/config"
+	"golang-echo-mongodb-jwt-auth-example/config"
 	"golang-echo-mongodb-jwt-auth-example/model"
 )
 
@@ -24,7 +24,7 @@ func init() {
 func WebSecurityConfig(e *echo.Echo) {
 	config := middleware.JWTConfig{
 		Claims:     &model.JwtCustomClaims{},
-		SigningKey: []byte(config2.JWTSecret),
+		SigningKey: []byte(config.JWTSecret),
 		Skipper:    skipAuth,
 	}
 	e.Use(middleware.JWTWithConfig(config))

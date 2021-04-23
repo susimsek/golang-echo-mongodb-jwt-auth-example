@@ -27,3 +27,4 @@ docker-compose.yaml
 
 # Exclude vagrant files.
 .vagrant
+vagrant

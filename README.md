@@ -53,14 +53,6 @@ vagrant ssh
 ```
 
 ```sh
-sudo mkdir -p $PWD/data/mongodb-data
-```
-
-```sh
-sudo chmod 777 -R $PWD/data/mongodb-data
-```
-
-```sh
 docker-compose up -d
 ```
 

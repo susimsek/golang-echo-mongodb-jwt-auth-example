@@ -24,6 +24,10 @@ services:
       - MONGODB_DATABASE
       - MONGODB_ROOT_PASSWORD
     volumes:
-      - ./data/mongodb-data:/bitnami/mongodb:Z
+      - mongodb_data:/bitnami/mongodb
     ports:
       - 27017:27017
+volumes:
+  mongodb_data:
+    driver: local
+    name: mongodb_data

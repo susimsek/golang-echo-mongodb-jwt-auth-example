@@ -15,6 +15,59 @@
 docker-compose up -d 
 ```
 
+## Installation Using Vagrant
+
+<img src="https://github.com/susimsek/golang-echo-mongodb-jwt-auth-example/blob/main/images/vagrant-installation.png" alt="Golang Vagrant Installation" width="100%" height="100%"/> 
+
+### Prerequisites
+
+* Vagrant 2.2+
+* Virtualbox or Hyperv
+
+```sh
+vagrant up
+```
+
+```sh
+vagrant ssh
+```
+
+```sh
+cd vagrant/setup
+```
+
+```sh
+sudo chmod u+x *.sh
+```
+
+```sh
+./install-prereqs.sh
+```
+
+```sh
+exit
+```
+
+```sh
+vagrant ssh
+```
+
+```sh
+sudo mkdir -p $PWD/data/mongodb-data
+```
+
+```sh
+sudo chmod 777 -R $PWD/data/mongodb-data
+```
+
+```sh
+docker-compose up -d
+```
+
+You can access the Golang Swagger from the following url.
+
+http://localhost:9000/api
+
 ## Used Technologies
 
 * Golang 1.16.3

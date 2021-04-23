@@ -23,7 +23,7 @@ func WebSecurityConfig(e *echo.Echo) {
 
 func skipAuth(e echo.Context) bool {
 	// Skip authentication for and signup login requests
-	if e.Path() == "/api/v1/login" || e.Path() == "/api/v1/signup" || e.Path() == "/api/*" {
+	if e.Path() == "/favicon.ico" || e.Path() == "/api" || e.Path() == "/api/*" || e.Path() == "/api/v1/login" || e.Path() == "/api/v1/signup" {
 		return true
 	}
 	return false

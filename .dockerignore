@@ -9,7 +9,6 @@ tmp
 images
 data
 
-
 # Exclude "build-time" ignore files.
 .dockerignore
 .gcloudignore
@@ -25,3 +24,6 @@ docker-compose.yaml
 # Exclude air files.
 .air.toml
 .env
+
+# Exclude vagrant files.
+.vagrant

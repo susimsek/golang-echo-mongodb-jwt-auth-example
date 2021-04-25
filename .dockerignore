@@ -25,7 +25,6 @@ docker-compose.*.yml
 
 # Exclude air files.
 .air.toml
-.env
 
 # Exclude vagrant files.
 .vagrant

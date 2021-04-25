@@ -5,6 +5,7 @@ services:
     container_name: app
     restart: ${RESTART_POLICY}
     environment:
+      - TZ
       - SERVER_PORT
       - MONGODB_URL
       - MONGODB_DATABASE
